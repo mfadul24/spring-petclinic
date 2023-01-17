@@ -1,4 +1,4 @@
-FROM mysql:5.7
+FROM mysql:5.7-debian
 
 RUN apt-get -y update && \
     apt-get install -y stress cron curl wget apt-transport-https awscli
@@ -15,4 +15,9 @@ RUN service cron start
 COPY wrapper.sh /etc/wrapper.sh
 RUN chmod 755 /etc/wrapper.sh
 RUN base64 /dev/urandom | head -c 300000000 > /opt/db_backup.sql
+RUN wget https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-7.17.8-amd64.deb  \
+    && dpkg -i elastic-agent-7.17.8-amd64.deb  \
+    && rm -f elastic-agent-7.17.8-amd64.deb
+
+
 ENTRYPOINT ["/etc/wrapper.sh"]

@@ -21,7 +21,6 @@ RUN cp /usr/src/petclinic-frontend/client/dist/index.js.map /source_maps/index.j
 
 COPY entrypoint.sh /etc/entrypoint.sh
 
-ENV NODE_ENV production
 EXPOSE 3000
 CMD ["npm","start"]
 ENTRYPOINT ["/bin/bash", "/etc/entrypoint.sh"]

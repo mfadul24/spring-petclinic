@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:18
 
 RUN apt-get update && apt-get install -y \
 	apt-transport-https \
@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
 	&& curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
 	&& echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
 	&& apt-get update && apt-get install -y \
-	google-chrome-stable \
+	google-chrome-stable libgbm1 \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -25,7 +25,7 @@ USER chrome
 # Expose port 9222
 EXPOSE 9222
 
-COPY package*.json /home/chrome/
+COPY --chown=chrome:chrome package*.json /home/chrome/
 
 RUN npm install
 

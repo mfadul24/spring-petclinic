@@ -15,7 +15,7 @@ var http = require('http');
 var router = express.Router();
 var proxy = require('express-http-proxy');
 //now we should configure the API to use bodyParser and look for JSON data in the body
-app.use(logger('dev'));
+app.use(logger('common'));
 app.use(helmet());
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
